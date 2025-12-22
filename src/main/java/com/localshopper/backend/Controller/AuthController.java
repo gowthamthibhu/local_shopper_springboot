@@ -23,8 +23,15 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
 
+        String email = request.getEmail().trim();
+        String password = request.getPassword().trim();
+
+        System.out.println("LOGIN ATTEMPT:");
+        System.out.println("Email: [" + email + "]");
+        System.out.println("Password: [" + password + "]");
+
         User user = userRepository
-                .findByEmailAndPassword(request.getEmail(), request.getPassword())
+                .findByEmailAndPassword(email, password)
                 .orElse(null);
 
         if (user == null) {
@@ -40,5 +47,6 @@ public class AuthController {
                 )
         );
     }
+
 }
 
