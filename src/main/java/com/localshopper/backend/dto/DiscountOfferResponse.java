@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 public class DiscountOfferResponse {
-
     private Long id;
     private String dealName;
     private double discountValue;
@@ -16,6 +15,8 @@ public class DiscountOfferResponse {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
-    private Long itemId;
+    // 🔥 ADD THIS
+    private Long shopId;
     private String itemName;
 }
+

@@ -57,8 +57,8 @@ public class DiscountOfferController {
                         o.getDiscountType().name(),
                         o.getStartTime(),
                         o.getEndTime(),
-                        o.getItem().getId(),
-                        o.getItem().getItemName()
+                        o.getItem().getShop().getId(),   // ✅ shopId
+                        o.getItem().getItemName()        // optional but useful
                 ))
                 .toList();
     }
