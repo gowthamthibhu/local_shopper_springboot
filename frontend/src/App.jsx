@@ -7,7 +7,8 @@ import ItemCreate from './pages/ShopOwner/Items/ItemCreate'
 import OfferCreate from './pages/ShopOwner/Offers/OfferCreate'
 import PickupSlotCreate from './pages/ShopOwner/Pickups/PickupSlotCreate'
 import Navbar from './components/Navbar'
-import AuthProvider from "./context/AuthContext";
+import OwnerMyShops from "./pages/ShopOwner/Shops/OwnerMyShops";
+
 
 function RequireAuth({ children, roles }) {
   const role = localStorage.getItem('role')
@@ -41,6 +42,15 @@ export default function App() {
             </RequireAuth>
           }
         />
+
+        <Route 
+          path="/owner/my-shops" 
+          element={
+            <RequireAuth roles={['SHOP_OWNER']}>
+              <OwnerMyShops />
+            </RequireAuth>
+          }
+        />   
 
         <Route
           path="/owner/create-shop"

@@ -47,6 +47,17 @@ public class ShopService {
     }
 
     public List<Shop> getOwnerShops(Long ownerId) {
+
+        // ensure user exists and is shop owner
+        User owner = userRepository.findById(ownerId)
+                .orElseThrow(() -> new RuntimeException("Owner not found"));
+
+        if (owner.getRole() != UserRole.SHOP_OWNER) {
+            throw new RuntimeException("Only shop owners can view owned shops");
+        }
+
+        // return ONLY their shops
         return shopRepository.findByOwnerId(ownerId);
     }
+
 }

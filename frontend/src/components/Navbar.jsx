@@ -26,6 +26,9 @@ export default function Navbar(){
             {user.role === 'SHOP_OWNER' && (
               <>
                 <li className="nav-item"><Link className="nav-link" to="/owner">Dashboard</Link></li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/owner/my-shops">My Shops</Link>
+                </li>
                 <li className="nav-item"><Link className="nav-link" to="/owner/create-shop">Create Shop</Link></li>
                 <li className="nav-item"><Link className="nav-link" to="/owner/create-item">Add Item</Link></li>
                 <li className="nav-item"><Link className="nav-link" to="/owner/create-offer">Add Offer</Link></li>
