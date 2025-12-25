@@ -34,32 +34,16 @@ public class DiscountOfferController {
 
         DiscountOffer saved = offerRepository.save(offer);
 
-        return new DiscountOfferResponse(
-                saved.getId(),
-                saved.getDealName(),
-                saved.getDiscountValue(),
-                saved.getDiscountType().name(),
-                saved.getStartTime(),
-                saved.getEndTime(),
-                item.getId(),
-                item.getItemName()
-        );
+        return DiscountOfferResponse.fromEntity(saved);
+
     }
 
     @GetMapping("/active")
     public List<DiscountOfferResponse> getActiveOffers() {
         return offerRepository.findByActiveTrue()
                 .stream()
-                .map(o -> new DiscountOfferResponse(
-                        o.getId(),
-                        o.getDealName(),
-                        o.getDiscountValue(),
-                        o.getDiscountType().name(),
-                        o.getStartTime(),
-                        o.getEndTime(),
-                        o.getItem().getShop().getId(),   // ✅ shopId
-                        o.getItem().getItemName()        // optional but useful
-                ))
+                .map(DiscountOfferResponse::fromEntity)
                 .toList();
     }
+
 }

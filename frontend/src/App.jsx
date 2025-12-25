@@ -8,11 +8,12 @@ import OfferCreate from './pages/ShopOwner/Offers/OfferCreate'
 import PickupSlotCreate from './pages/ShopOwner/Pickups/PickupSlotCreate'
 import Navbar from './components/Navbar'
 import OwnerMyShops from "./pages/ShopOwner/Shops/OwnerMyShops";
+import AutoRedirect from "./pages/AutoRedirect";
 
 
 function RequireAuth({ children, roles }) {
   const role = localStorage.getItem('role')
-  if (!role) return <Navigate to="/" />
+  if (!role) return <Navigate to="/login" />
   if (roles && !roles.includes(role)) return <Navigate to="/" />
   return children
 }
@@ -23,7 +24,8 @@ export default function App() {
       <Navbar />
 
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<AutoRedirect />} />
+        <Route path="/login" element={<Login />} />
 
         <Route
           path="/customer"

@@ -19,10 +19,15 @@ export default function Login(){
         });
       
         const { userId, name, role } = res.data;
-      
-        localStorage.setItem("userId", userId); // OK to keep
-        setUser({ name, role });                // <— triggers Navbar rerender
-      
+
+        localStorage.setItem("userId", userId);
+
+        setUser({
+          id: userId,
+          name,
+          role
+        });
+
         if (role === "CUSTOMER") navigate("/customer");
         else navigate("/owner");
       }catch(err){

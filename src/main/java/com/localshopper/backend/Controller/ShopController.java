@@ -15,45 +15,43 @@ public class ShopController {
 
     private final ShopService shopService;
 
-    // ✅ inject service (NOT repository)
+    // inject service
     public ShopController(ShopService shopService) {
         this.shopService = shopService;
     }
-
-    // ✅ ONLY ONE POST METHOD
 
     @GetMapping("/my")
     public ResponseEntity<List<ShopResponse>> getMyShops(@RequestParam Long ownerId) {
 
         List<ShopResponse> shops = shopService.getOwnerShops(ownerId)
                 .stream()
-                .map(shop -> new ShopResponse(
-                        shop.getId(),
-                        shop.getShopName(),
-                        shop.getAddress(),
-                        shop.getCity(),
-                        shop.getArea()
-                ))
+                .map(ShopResponse::fromEntity)
                 .toList();
 
         return ResponseEntity.ok(shops);
     }
+
 
     @PostMapping
     public ShopResponse createShop(
             @RequestParam Long ownerId,
             @RequestBody CreateShopRequest request
     ) {
-        Shop shop = shopService.createShop(ownerId, request);
-
-        return new ShopResponse(
-                shop.getId(),
-                shop.getShopName(),
-                shop.getAddress(),
-                shop.getCity(),
-                shop.getArea()
+        return ShopResponse.fromEntity(
+                shopService.createShop(ownerId, request)
         );
     }
+
+    @PatchMapping("/{shopId}/open")
+    public ResponseEntity<?> toggleOpen(
+            @PathVariable Long shopId,
+            @RequestParam boolean open
+    ) {
+        shopService.setShopOpenStatus(shopId, open);
+        return ResponseEntity.ok("status updated");
+    }
+
+
 
     @GetMapping
     public List<ShopResponse> getAllShops(
@@ -62,13 +60,17 @@ public class ShopController {
     ) {
         return shopService.getNearbyShops(city, area)
                 .stream()
-                .map(shop -> new ShopResponse(
-                        shop.getId(),
-                        shop.getShopName(),
-                        shop.getAddress(),
-                        shop.getCity(),
-                        shop.getArea()
-                ))
+                .map(ShopResponse::fromEntity)
                 .toList();
     }
+
+    @GetMapping("/open")
+    public List<ShopResponse> getOpenShops(@RequestParam String city) {
+
+        return shopService.getOpenShopsByCity(city)
+                .stream()
+                .map(ShopResponse::fromEntity)
+                .toList();
+    }
+
 }

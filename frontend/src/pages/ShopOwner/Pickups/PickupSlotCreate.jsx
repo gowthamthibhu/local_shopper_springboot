@@ -40,6 +40,7 @@ export default function PickupSlotCreate(){
         <input className="form-control mb-2" type="datetime-local" value={startTime} onChange={e=>setStartTime(e.target.value)} />
         <label>End Time</label>
         <input className="form-control mb-2" type="datetime-local" value={endTime} onChange={e=>setEndTime(e.target.value)} />
+        <label>Maximum Pickups</label>
         <input className="form-control mb-2" type="number" value={maxPickups} onChange={e=>setMaxPickups(Number(e.target.value))} />
         <button className="btn btn-primary">Create Slot</button>
       </form>

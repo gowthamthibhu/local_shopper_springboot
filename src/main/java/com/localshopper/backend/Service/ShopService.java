@@ -8,6 +8,7 @@ import com.localshopper.backend.Repository.UserRepository;
 import com.localshopper.backend.dto.Shop.CreateShopRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -22,6 +23,7 @@ public class ShopService {
     }
 
     public Shop createShop(Long ownerId, CreateShopRequest request) {
+
         User owner = userRepository.findById(ownerId).orElseThrow();
 
         if (owner.getRole() != UserRole.SHOP_OWNER) {
@@ -35,8 +37,26 @@ public class ShopService {
         shop.setArea(request.getArea());
         shop.setOwner(owner);
 
+        shop.setOpen(request.getOpen() != null ? request.getOpen() : false);
+        shop.setOpeningTime(
+                request.getOpeningTime() != null ? request.getOpeningTime() : LocalTime.of(9,0)
+        );
+        shop.setClosingTime(
+                request.getClosingTime() != null ? request.getClosingTime() : LocalTime.of(21,0)
+        );
+
+
         return shopRepository.save(shop);
     }
+
+    public void setShopOpenStatus(Long shopId, boolean open) {
+        Shop shop = shopRepository.findById(shopId)
+                .orElseThrow(() -> new RuntimeException("Shop not found"));
+
+        shop.setOpen(open);
+        shopRepository.save(shop);
+    }
+
 
 
     public List<Shop> getNearbyShops(String city, String area) {
@@ -59,5 +79,16 @@ public class ShopService {
         // return ONLY their shops
         return shopRepository.findByOwnerId(ownerId);
     }
+
+    public List<Shop> getOpenShopsByCity(String city) {
+        return shopRepository.findByCityAndOpenTrue(city);
+    }
+
+    public boolean isCurrentlyOpen(Shop shop) {
+        LocalTime now = LocalTime.now();
+        return now.isAfter(shop.getOpeningTime()) && now.isBefore(shop.getClosingTime());
+    }
+
+
 
 }

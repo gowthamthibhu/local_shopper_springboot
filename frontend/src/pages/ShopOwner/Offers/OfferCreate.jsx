@@ -49,6 +49,7 @@ export default function OfferCreate(){
           {items.map(i=> <option key={i.id} value={i.id}>{i.itemName} ({i.shop?.shopName || 'shop'})</option>)}
         </select>
         <input className="form-control mb-2" placeholder="Deal Name" value={dealName} onChange={e=>setDealName(e.target.value)} />
+        <label>Discount</label>
         <select className="form-select mb-2" value={discountType} onChange={e=>setDiscountType(e.target.value)}>
           <option value="PERCENTAGE">PERCENTAGE</option>
           <option value="FIXED">FIXED</option>

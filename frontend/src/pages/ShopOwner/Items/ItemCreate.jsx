@@ -39,7 +39,9 @@ export default function ItemCreate(){
         </select>
         <input className="form-control mb-2" placeholder="Item name" value={itemName} onChange={e=>setItemName(e.target.value)} />
         <input className="form-control mb-2" placeholder="Description" value={description} onChange={e=>setDescription(e.target.value)} />
+        <label>Price</label>
         <input className="form-control mb-2" type="number" placeholder="Price" value={price} onChange={e=>setPrice(Number(e.target.value))} />
+        <label>Quantity</label>
         <input className="form-control mb-2" type="number" placeholder="Quantity" value={quantity} onChange={e=>setQuantity(Number(e.target.value))} />
         <button className="btn btn-primary">Add Item</button>
       </form>
