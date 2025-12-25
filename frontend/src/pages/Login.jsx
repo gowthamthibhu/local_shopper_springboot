@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { AuthContext } from "../context/AuthContext";
 import api from '../api/api'
 import { useNavigate } from 'react-router-dom'
 
@@ -7,23 +8,27 @@ export default function Login(){
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
+  const { setUser } = useContext(AuthContext);
+
   async function handleLogin(e){
-    e.preventDefault()
-    try{
+      e.preventDefault()
+      try{      
         const res = await api.post("/auth/login", {
-            email: email.trim(),
-            password: password.trim()
+          email: email.trim(),
+          password: password.trim(),
         });
-      const { userId, name, role } = res.data
-      localStorage.setItem('userId', userId)
-      localStorage.setItem('name', name)
-      localStorage.setItem('role', role)
-      if(role === 'CUSTOMER') navigate('/customer')
-      else navigate('/owner')
-    }catch(err){
-      alert('Invalid credentials')
-      console.error(err?.response?.data || err.message)
-    }
+      
+        const { userId, name, role } = res.data;
+      
+        localStorage.setItem("userId", userId); // OK to keep
+        setUser({ name, role });                // <— triggers Navbar rerender
+      
+        if (role === "CUSTOMER") navigate("/customer");
+        else navigate("/owner");
+      }catch(err){
+        alert('Invalid credentials')
+        console.error(err?.response?.data || err.message)
+      }
   }
 
   return (

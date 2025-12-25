@@ -7,6 +7,7 @@ import ItemCreate from './pages/ShopOwner/Items/ItemCreate'
 import OfferCreate from './pages/ShopOwner/Offers/OfferCreate'
 import PickupSlotCreate from './pages/ShopOwner/Pickups/PickupSlotCreate'
 import Navbar from './components/Navbar'
+import AuthProvider from "./context/AuthContext";
 
 function RequireAuth({ children, roles }) {
   const role = localStorage.getItem('role')

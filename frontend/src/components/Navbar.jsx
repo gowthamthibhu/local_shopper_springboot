@@ -1,14 +1,18 @@
 import { Link, useNavigate } from 'react-router-dom'
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+
+
 
 export default function Navbar(){
   const navigate = useNavigate()
-  const role = localStorage.getItem('role')
-  const name = localStorage.getItem('name')
-
-  function logout(){
-    localStorage.clear()
-    navigate('/')
+  const { user, setUser } = useContext(AuthContext);
+  function logout() {
+    localStorage.clear();
+    setUser({ name: null, role: null });
+    navigate("/");
   }
+
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -16,10 +20,10 @@ export default function Navbar(){
         <Link className="navbar-brand" to="/">LocalShopper</Link>
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav me-auto">
-            {role === 'CUSTOMER' && (
+            {user.role === 'CUSTOMER' && (
               <li className="nav-item"><Link className="nav-link" to="/customer">Home</Link></li>
             )}
-            {role === 'SHOP_OWNER' && (
+            {user.role === 'SHOP_OWNER' && (
               <>
                 <li className="nav-item"><Link className="nav-link" to="/owner">Dashboard</Link></li>
                 <li className="nav-item"><Link className="nav-link" to="/owner/create-shop">Create Shop</Link></li>
@@ -31,14 +35,18 @@ export default function Navbar(){
           </ul>
 
           <ul className="navbar-nav ms-auto">
-            {name ? (
-              <>
-                <li className="nav-item nav-link">{name}</li>
-                <li className="nav-item"><button className="btn btn-outline-secondary" onClick={logout}>Logout</button></li>
-              </>
-            ) : (
-              <li className="nav-item"><Link className="nav-link" to="/">Login</Link></li>
-            )}
+          {user?.name ? (
+            <>
+              <li className="nav-item nav-link">{user.name}</li>
+              <li className="nav-item">
+                <button className="btn btn-outline-secondary" onClick={logout}>
+                  Logout
+                </button>
+              </li>
+            </>
+          ) : (
+            <li className="nav-item"><Link className="nav-link" to="/">Login</Link></li>
+          )}
           </ul>
         </div>
       </div>
