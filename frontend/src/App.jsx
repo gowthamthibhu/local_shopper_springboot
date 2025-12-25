@@ -1,11 +1,11 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Login from './pages/Login'
-import CustomerHome from './pages/CustomerHome'
-import OwnerHome from './pages/OwnerHome'
-import ShopCreate from './pages/ShopCreate'
-import ItemCreate from './pages/ItemCreate'
-import OfferCreate from './pages/OfferCreate'
-import PickupSlotCreate from './pages/PickupSlotCreate'
+import CustomerHome from './pages/Customer/CustomerHome'
+import OwnerHome from './pages/ShopOwner/OwnerHome'
+import ShopCreate from './pages/ShopOwner/Shops/ShopCreate'
+import ItemCreate from './pages/ShopOwner/Items/ItemCreate'
+import OfferCreate from './pages/ShopOwner/Offers/OfferCreate'
+import PickupSlotCreate from './pages/ShopOwner/Pickups/PickupSlotCreate'
 import Navbar from './components/Navbar'
 
 function RequireAuth({ children, roles }) {
@@ -18,7 +18,6 @@ function RequireAuth({ children, roles }) {
 export default function App() {
   return (
     <>
-      {/* ✅ Navbar is now INSIDE Router context */}
       <Navbar />
 
       <Routes>

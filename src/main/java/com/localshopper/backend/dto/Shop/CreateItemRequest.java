@@ -1,4 +1,4 @@
-package com.localshopper.backend.dto;
+package com.localshopper.backend.dto.Shop;
 
 import lombok.Getter;
 import lombok.Setter;

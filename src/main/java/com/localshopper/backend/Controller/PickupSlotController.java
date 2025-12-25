@@ -4,7 +4,7 @@ import com.localshopper.backend.Model.PickupSlot;
 import com.localshopper.backend.Model.Shop;
 import com.localshopper.backend.Repository.PickupSlotRepository;
 import com.localshopper.backend.Repository.ShopRepository;
-import com.localshopper.backend.dto.PickupSlotResponse;
+import com.localshopper.backend.dto.Shop.PickupSlotResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

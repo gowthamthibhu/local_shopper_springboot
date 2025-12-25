@@ -1,4 +1,4 @@
-package com.localshopper.backend.dto;
+package com.localshopper.backend.dto.Shop;
 
 import com.localshopper.backend.Model.DiscountType;
 import lombok.Getter;

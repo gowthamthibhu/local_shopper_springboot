@@ -4,7 +4,7 @@ import com.localshopper.backend.Model.Item;
 import com.localshopper.backend.Model.Shop;
 import com.localshopper.backend.Repository.ItemRepository;
 import com.localshopper.backend.Repository.ShopRepository;
-import com.localshopper.backend.dto.CreateItemRequest;
+import com.localshopper.backend.dto.Shop.CreateItemRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

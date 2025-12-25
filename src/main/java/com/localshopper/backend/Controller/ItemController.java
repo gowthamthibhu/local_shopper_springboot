@@ -2,8 +2,8 @@ package com.localshopper.backend.Controller;
 
 import com.localshopper.backend.Model.Item;
 import com.localshopper.backend.Service.ItemService;
-import com.localshopper.backend.dto.CreateItemRequest;
-import com.localshopper.backend.dto.ItemResponse;
+import com.localshopper.backend.dto.Shop.CreateItemRequest;
+import com.localshopper.backend.dto.Shop.ItemResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

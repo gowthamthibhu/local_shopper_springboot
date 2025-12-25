@@ -4,7 +4,7 @@ import com.localshopper.backend.Model.DiscountOffer;
 import com.localshopper.backend.Model.Item;
 import com.localshopper.backend.Repository.DiscountOfferRepository;
 import com.localshopper.backend.Repository.ItemRepository;
-import com.localshopper.backend.dto.DiscountOfferResponse;
+import com.localshopper.backend.dto.Shop.DiscountOfferResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

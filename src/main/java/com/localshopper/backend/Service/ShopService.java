@@ -5,7 +5,7 @@ import com.localshopper.backend.Model.User;
 import com.localshopper.backend.Model.UserRole;
 import com.localshopper.backend.Repository.ShopRepository;
 import com.localshopper.backend.Repository.UserRepository;
-import com.localshopper.backend.dto.CreateShopRequest;
+import com.localshopper.backend.dto.Shop.CreateShopRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

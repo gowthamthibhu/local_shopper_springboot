@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import api from '../api/api'
-import BookingModal from './BookingModal'
+import api from '../../api/api'
+import BookingModal from './Bookings/BookingModal'
 
 export default function CustomerHome(){
   const [offers, setOffers] = useState([])
