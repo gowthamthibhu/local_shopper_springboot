@@ -1,66 +1,58 @@
-import { useEffect, useState } from 'react'
-import api from '../../api/api'
-import BookingModal from './Bookings/BookingModal'
+import { useEffect, useState } from "react"
+import api from "../../api/api"
+import { Link } from "react-router-dom"
 
 export default function CustomerHome(){
-  const [offers, setOffers] = useState([])
-  const [selectedOffer, setSelectedOffer] = useState(null)
-  const [showModal, setShowModal] = useState(false)
+
+  const [shops, setShops] = useState([])
 
   useEffect(()=>{
-    api.get('/offers/active').then(res=>setOffers(res.data)).catch(console.error)
-  },[])
-
-  function openBooking(offer){
-    setSelectedOffer(offer)
-    setShowModal(true)
-  }
-  useEffect(()=>{
-    api.get('/offers/active')
-      .then(res=>{
-        console.log("OFFERS →", res.data);
-        setOffers(res.data);
-      })
+    api.get("/shops")
+      .then(res => setShops(res.data))
       .catch(console.error)
   },[])
-  
 
   return (
     <div className="container mt-4">
-      <h3>Today's Discounts</h3>
+
+      <h3>Nearby Shops</h3>
+
       <div className="row">
-        {offers.map(o=> (
-          <div className="col-md-4" key={o.id}>
+        {shops.map(shop => (
+          <div className="col-md-4" key={shop.id}>
             <div className="card mb-3">
               <div className="card-body">
+
+                <h5>{shop.shopName}</h5>
+
+                <p>{shop.area}, {shop.city}</p>
+
                 <p>
-                  Shop Status:
-                  {o.shopOpen
+                  Status:
+                  {shop.open
                     ? <span className="badge bg-success ms-2">OPEN</span>
                     : <span className="badge bg-danger ms-2">CLOSED</span>
                   }
                 </p>
 
-                <h5>{o.dealName}</h5>
-                <p>Item: {o.itemName || '—'}</p>
-                <p>Discount: {o.discountValue} {o.discountType}</p>
-                <p>Valid: {new Date(o.startTime).toLocaleString()} — {new Date(o.endTime).toLocaleString()}</p>
-                <button
-                  className="btn btn-success"
-                  disabled={!o.shopOpen}
-                  onClick={() => openBooking(o)}
-                >
-                  Book
-                </button>
+                {shop.open ? (
+                    <Link
+                      className="btn btn-primary"
+                      to={`/shop/${shop.id}`}
+                    >
+                      View Offers
+                    </Link>
+                  ) : (
+                    <button className="btn btn-secondary" disabled>
+                      Shop Closed
+                    </button>
+                  )}
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      {showModal && (
-        <BookingModal offer={selectedOffer} onClose={()=>setShowModal(false)} />
-      )}
     </div>
   )
 }

@@ -46,7 +46,11 @@ export default function OfferCreate(){
       <form onSubmit={createOffer}>
         <select className="form-select mb-2" value={itemId} onChange={e=>setItemId(e.target.value)}>
           <option value="">Select Item</option>
-          {items.map(i=> <option key={i.id} value={i.id}>{i.itemName} ({i.shop?.shopName || 'shop'})</option>)}
+          {items.map(i=> 
+          <option key={i.id} value={i.id}>
+            {i.itemName} ({i.shop?.shopName || i.shopName || 'shop'})
+          </option>
+          )}
         </select>
         <input className="form-control mb-2" placeholder="Deal Name" value={dealName} onChange={e=>setDealName(e.target.value)} />
         <label>Discount</label>

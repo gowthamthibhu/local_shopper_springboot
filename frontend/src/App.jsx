@@ -9,6 +9,7 @@ import PickupSlotCreate from './pages/ShopOwner/Pickups/PickupSlotCreate'
 import Navbar from './components/Navbar'
 import OwnerMyShops from "./pages/ShopOwner/Shops/OwnerMyShops";
 import AutoRedirect from "./pages/AutoRedirect";
+import ShopPage from './pages/Customer/ShopPage/ShopPage'
 
 
 function RequireAuth({ children, roles }) {
@@ -35,6 +36,16 @@ export default function App() {
             </RequireAuth>
           }
         />
+
+        <Route
+          path="/shop/:shopId"
+          element={
+            <RequireAuth roles={['CUSTOMER']}>
+              <ShopPage />
+            </RequireAuth>
+          }
+        />
+
 
         <Route
           path="/owner"
