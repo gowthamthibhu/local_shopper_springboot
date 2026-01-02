@@ -4,6 +4,7 @@ import com.localshopper.backend.Model.DiscountOffer;
 import com.localshopper.backend.Model.Item;
 import com.localshopper.backend.Repository.DiscountOfferRepository;
 import com.localshopper.backend.Repository.ItemRepository;
+import com.localshopper.backend.Service.DiscountService;
 import com.localshopper.backend.dto.Shop.DiscountOfferResponse;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +16,20 @@ public class DiscountOfferController {
 
     private final DiscountOfferRepository offerRepository;
     private final ItemRepository itemRepository;
+    private final DiscountService discountService;
 
     public DiscountOfferController(DiscountOfferRepository offerRepository,
-                                   ItemRepository itemRepository) {
+                                   ItemRepository itemRepository, DiscountService discountService) {
         this.offerRepository = offerRepository;
         this.itemRepository = itemRepository;
+        this.discountService = discountService;
     }
+
+    @GetMapping("/shop/{shopId}")
+    public List<DiscountOfferResponse> getOffersForShop(@PathVariable Long shopId) {
+        return discountService.getOffersByShop(shopId);
+    }
+
 
     @PostMapping
     public DiscountOfferResponse createOffer(
