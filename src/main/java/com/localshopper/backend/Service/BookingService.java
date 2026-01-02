@@ -73,6 +73,18 @@ public class BookingService {
 
         PickupSlot slot = slotRepository.findById(pickupSlotId).orElseThrow();
 
+        if (now.isAfter(slot.getEndTime())) {
+            throw new RuntimeException("Pickup slot already ended");
+        }
+
+        if (now.isBefore(slot.getStartTime())) {
+            throw new RuntimeException("Pickup slot not started yet");
+        }
+
+        if (!slot.isEnabled()) {
+            throw new RuntimeException("Pickup slot is disabled");
+        }
+
         Booking booking = new Booking();
         booking.setCustomer(customer);
         booking.setDiscountOffer(offer);

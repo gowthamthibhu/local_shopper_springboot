@@ -9,6 +9,7 @@ public class ItemResponse {
     private Long id;
     private String itemName;
     private String description;
+    private String shopName;
     private double price;
     private double discountPrice;
     private int quantity;

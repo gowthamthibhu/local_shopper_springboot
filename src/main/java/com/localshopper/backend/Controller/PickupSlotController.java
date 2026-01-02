@@ -45,7 +45,8 @@ public class PickupSlotController {
 
     @GetMapping("/shop/{shopId}")
     public List<PickupSlotResponse> getSlots(@PathVariable Long shopId) {
-        return slotRepository.findByShopIdAndEnabledTrue(shopId)
+
+        return slotRepository.findActiveFutureSlots(shopId)
                 .stream()
                 .map(slot -> new PickupSlotResponse(
                         slot.getId(),
@@ -57,5 +58,6 @@ public class PickupSlotController {
                 ))
                 .toList();
     }
+
 }
 

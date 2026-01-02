@@ -30,6 +30,7 @@ public class ItemController {
                 item.getId(),
                 item.getItemName(),
                 item.getDescription(),
+                item.getShop().getShopName(),
                 item.getPrice(),
                 item.getDiscountPrice(),
                 item.getQuantity()
@@ -45,6 +46,7 @@ public class ItemController {
                         item.getId(),
                         item.getItemName(),
                         item.getDescription(),
+                        item.getShop().getShopName(),
                         item.getPrice(),
                         item.getDiscountPrice(),
                         item.getQuantity()

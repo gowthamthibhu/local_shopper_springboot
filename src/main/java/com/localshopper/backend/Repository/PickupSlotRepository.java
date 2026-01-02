@@ -23,4 +23,24 @@ public interface PickupSlotRepository extends JpaRepository<PickupSlot, Long> {
           AND p.currentPickups + :inc <= p.maxPickups
     """)
     int incrementCurrentPickupsIfSpace(Long slotId, int inc);
+
+    @Query("""
+    SELECT p FROM PickupSlot p
+    WHERE p.shop.id = :shopId
+      AND p.enabled = true
+      AND p.endTime > CURRENT_TIMESTAMP
+    """)
+    List<PickupSlot> findActiveFutureSlots(Long shopId);
+
+    @Modifying
+    @Transactional
+    @Query("""
+    UPDATE PickupSlot p
+    SET p.enabled = false
+    WHERE p.endTime < CURRENT_TIMESTAMP
+      AND p.enabled = true
+       """)
+    int disableExpiredSlots();
+
+
 }
